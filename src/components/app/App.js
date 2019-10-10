@@ -9,6 +9,8 @@ import ProductTable from '../product-table/ProductTable';
 import Lazy from '../lazy/Lazy';
 import ShowContext from '../context/Context';
 import RefDemo from '../ref/RefDemo';
+import HocDemo from '../hoc/HocDemo';
+import MouseDemo from '../render-prop/Mouse';
 import {ActionLink, BindOptions, Conditional, HideMe, ShowContainer, WelcomeTitle} from '../experiments/experiments.js';
 
 
@@ -31,8 +33,8 @@ function App() {
       <Lazy />
       <ShowContext />
       <RefDemo />
-    
-      
+      <HocDemo />
+      <MouseDemo />
     </div>
   );
 }
