@@ -11,6 +11,7 @@ import ShowContext from '../context/Context';
 import RefDemo from '../ref/RefDemo';
 import HocDemo from '../hoc/HocDemo';
 import MouseDemo from '../render-prop/Mouse';
+import FileInput from '../file/FileInput';
 import {ActionLink, BindOptions, Conditional, HideMe, ShowContainer, WelcomeTitle} from '../experiments/experiments.js';
 
 
@@ -34,7 +35,8 @@ function App() {
       <ShowContext />
       <RefDemo />
       <HocDemo />
-      <MouseDemo />
+      {/* <MouseDemo /> */}
+      <FileInput />
     </div>
   );
 }

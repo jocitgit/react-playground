@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/Users/jflood/Training/react/react-redux-typescript-guide"
 		}
 	]
 }
