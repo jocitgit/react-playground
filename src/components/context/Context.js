@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MyContext, MyContextObject, ContextColor, ContextUsername } from './constants';
 
 // Providing and consuming single context value
@@ -20,11 +20,20 @@ function ContextConsumer() { // enables context use in a function instead of cla
     );
 }
 
+function HookContextUser() {
+    const cxt = useContext(MyContext); // see imports
+    return (
+        <div> MyContext is {cxt}</div>
+    );
+
+}
+
 function ContextProvider() {
     return (
         <MyContext.Provider value='true'>
             <ContextUser />
             <ContextConsumer />
+            <HookContextUser />
         </MyContext.Provider>
     );
 }
@@ -79,6 +88,7 @@ function MultiContextConsumer() {
         </ContextColor.Consumer>
     );
 }
+
 
 
 class ShowContext extends React.Component {

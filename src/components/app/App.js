@@ -12,6 +12,8 @@ import RefDemo from '../ref/RefDemo';
 import HocDemo from '../hoc/HocDemo';
 import MouseDemo from '../render-prop/Mouse';
 import FileInput from '../file/FileInput';
+import HookDemo from '../hooks/HookDemo';
+import HookClock from '../hooks/HookClock.js';
 import {ActionLink, BindOptions, Conditional, HideMe, ShowContainer, WelcomeTitle} from '../experiments/experiments.js';
 
 
@@ -19,6 +21,7 @@ function App() {
   return (
     <div>
       <Clock />
+      <HookClock />
       <Game />
       <ActionLink />
       <BindOptions />
@@ -37,6 +40,7 @@ function App() {
       <HocDemo />
       {/* <MouseDemo /> */}
       <FileInput />
+      <HookDemo />
     </div>
   );
 }
