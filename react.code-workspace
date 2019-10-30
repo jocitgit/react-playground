@@ -5,6 +5,21 @@
 		},
 		{
 			"path": "/Users/jflood/Training/react/react-redux-typescript-guide"
+		},
+		{
+			"path": "/Users/jflood/Training/react/react_generator"
+		},
+		{
+			"path": "/Users/jflood/AndroidStudioProjects/ReactAndroidProject"
 		}
-	]
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true
+		},
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
 }

@@ -1,0 +1,17 @@
+
+import React from 'react';
+// import { connect } from 'redux'
+// import { getCustomers } from './customers'
+
+function ReduxList() {
+    
+    return (
+        <div>
+            {/* <button onClick={store.dispatch(getCustomers())}>Get Customers</button> */}
+            Redux demo
+    </div>
+    );
+}
+
+// export default (connect)(ReduxList);
+export default ReduxList;
