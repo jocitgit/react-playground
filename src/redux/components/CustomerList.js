@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import CustomerElement from './CustomerElement'
 
 // const CustomerList = ({ isFetching, customers }) => {
-const CustomerList = ({ isFetching, customers, onCustomerClick }) => {
+const CustomerList = ({ isFetching, customers, onCustomerClick, onCustomerDelete }) => {
   if (isFetching) {
     return (<p>Fetching Data...</p>)
   } else {
     return (
       <ul>
         {customers.map(customer => (
-          <CustomerElement key={customer._id} customerDetails={customer} onClick={() => onCustomerClick(customer._id)}/>
+          <CustomerElement key={customer._id} customerDetails={customer} onClick={() => onCustomerClick(customer._id)} onDeleteClick={() => onCustomerDelete(customer._id)} />
         ))}
       </ul>
     )
@@ -29,7 +29,8 @@ CustomerList.propTypes = {
       fullName: PropTypes.string.isRequired
     })
   ),
-  onCustomerClick: PropTypes.func.isRequired
+  onCustomerClick: PropTypes.func.isRequired,
+  onCustomerDelete: PropTypes.func.isRequired
 }
 
 export default CustomerList

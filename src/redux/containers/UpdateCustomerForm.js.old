@@ -1,0 +1,27 @@
+import React from 'react'
+import { Control, Form, actions } from 'react-redux-form'
+import { connect } from 'react-redux'
+import { updateCustomer } from '../actions'
+
+let UpdateCustomerForm = ({ dispatch }) => {
+    return (
+        <div>
+            <Form model="updateCustomer" 
+                onSubmit={customer => {
+                    dispatch(updateCustomer(customer))
+                }}
+            >
+                <label htmlFor="updateCustomer._id">Id: </label>
+                <Control.text model="updateCustomer._id" id="updateCustomer._id" />
+                <label htmlFor="updateCustomer.firstName">First Name: </label>
+                <Control.text model="updateCustomer.firstName" id="updateCustomer.firstName"/>
+                <label htmlFor="updateCustomer.lastName">Last Name: </label>
+                <Control.text model="updateCustomer.lastName" id="updateCustomer.lastName"/>
+                <button type="submit">Update Customer</button>
+            </Form>
+        </div>
+    )
+}
+UpdateCustomerForm = connect()(UpdateCustomerForm)
+
+export default UpdateCustomerForm

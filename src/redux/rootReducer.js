@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { createForms } from 'react-redux-form';
 import visibilityFilter from './reducers/visibilityFilter';
 import todos from './reducers/todos';
 import { customers, customerById, dbError } from './reducers/customerReducer'
@@ -15,12 +16,17 @@ import { customers, customerById, dbError } from './reducers/customerReducer'
 // Equivalent to above function
 // key name and state 'slice' provided to each reducer correspond to its name 
 // e.g. { visibilityFilter: visibilityFilter(state.visibilityFilter...
+
+const initialAddCustomerState = { firstName: '', lastName: '' };
+const initialUpdateCustomerState = { _id: '', firstName: '', lastName: '' };
+
 const rootReducer = combineReducers({ 
     visibilityFilter,
     todos, 
     customers, 
     customerById, 
-    dbError
+    dbError,
+    ...createForms({addCustomer: initialAddCustomerState, updateCustomer: initialUpdateCustomerState})
   });
   
 export default rootReducer;

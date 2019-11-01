@@ -1,4 +1,5 @@
 // import fetch from 'cross-fetch'
+import { actions } from 'react-redux-form'
 
 let nextToDoId = 0;
 
@@ -9,11 +10,20 @@ let nextToDoId = 0;
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
+
 export const REQUEST_CUSTOMERS = 'REQUEST_CUSTOMERS'
 export const REQUEST_CUSTOMER_BY_ID = 'REQUEST_CUSTOMER_BY_ID'
 export const RECEIVE_CUSTOMERS = 'RECEIVE_CUSTOMERS'
 export const RECEIVE_CUSTOMER_BY_ID = 'RECEIVE_CUSTOMER_BY_ID'
 export const DB_ERROR = 'DB_ERROR'
+
+export const REQUEST_ADD_CUSTOMER = 'REQUEST_ADD_CUSTOMER'
+export const RECEIVE_ADD_CUSTOMER = 'RECEIVE_ADD_CUSTOMER'
+export const REQUEST_DELETE_CUSTOMER = 'REQUEST_DELETE_CUSTOMER'
+export const RECEIVE_DELETE_CUSTOMER = 'RECEIVE_DELETE_CUSTOMER'
+export const REQUEST_UPDATE_CUSTOMER = 'REQUEST_UPDATE_CUSTOMER'
+export const RECEIVE_UPDATE_CUSTOMER = 'RECEIVE_UPDATE_CUSTOMER'
+
 
 /*
  * other constants
@@ -80,6 +90,45 @@ export function dbError(err) {
   }
 }
 
+export function requestAddCustomer(customer) {
+  return { type: REQUEST_ADD_CUSTOMER, customer }
+}
+
+export function receiveAddCustomer(customer) {
+  return {
+    type: RECEIVE_ADD_CUSTOMER,
+    customer
+  }
+}
+
+export function requestDeleteCustomer(id) {
+  return { 
+    type: REQUEST_DELETE_CUSTOMER, 
+    id 
+  }
+}
+
+export function receiveDeleteCustomer(customer) {
+  return {
+    type: RECEIVE_DELETE_CUSTOMER, 
+    customer
+  }
+}
+
+export function requestUpdateCustomer(customer) {
+  return { 
+    type: REQUEST_UPDATE_CUSTOMER, 
+    customer 
+  }
+}
+
+export function receiveUpdateCustomer(customer) {
+  return {
+    type: RECEIVE_UPDATE_CUSTOMER,
+    customer
+  }
+}
+
 export function fetchCustomers() {
   return function (dispatch) {
     dispatch(requestCustomers())
@@ -92,20 +141,101 @@ export function fetchCustomers() {
 
 export function fetchCustomerById(id) {
   return function (dispatch) {
-    let err = false;
+    let hasErr = false;
     dispatch(requestCustomerById(id))
     return fetch('http://localhost:3000/customers/' + id)
       // .then((response) => response.json())
       // .then(responseJson => dispatch(receiveCustomerById(id, responseJson.data)))
       // .catch(err => dispatch(dbError(err)))
       .then((response) => {
-        err = !response.ok;
+        hasErr = !response.ok;
         return response.json();
       })
-      .then((responseJson) => 
-        err ? dispatch(dbError(responseJson)) : dispatch(receiveCustomerById(id, responseJson.data))
-      )
+      .then((responseJson) => {
+        if (hasErr) {
+          dispatch(dbError(responseJson))
+         } else { 
+           dispatch(receiveCustomerById(id, responseJson.data))
+           //dispatch(actions.merge('updateCustomer', responseJson.data)) // requires separate reset function
+           dispatch(actions.load('updateCustomer', responseJson.data)) // allows standard reset button to work
+         }        
+      })
       .catch(err => dispatch(dbError(err)))
+  }
+}
+
+export function addCustomer(customer) {
+  return function(dispatch) {
+    let hasErr = false;
+    dispatch(requestAddCustomer(customer))
+    return fetch('http://localhost:3000/customers', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(customer)
+              })
+              .then((response) => {
+                hasErr = !response.ok;
+                return response.json();
+              })
+              .then((responseJson) => {
+                if (hasErr) {
+                  dispatch(dbError(responseJson))
+                 } else {
+                  dispatch(receiveAddCustomer(responseJson.data))
+                  dispatch(fetchCustomers())
+                 }
+              })
+              .catch(err => dispatch(dbError(err)))
+  }
+}
+
+export function deleteCustomer(id) {
+  return function(dispatch) {
+    let hasErr = false;
+    dispatch(requestDeleteCustomer(id))
+    return fetch('http://localhost:3000/customers/' + id, {
+                  method: 'DELETE',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: ''
+              })
+              .then((response) => {
+                hasErr = !response.ok;
+                return response.json();
+              })
+              .then((responseJson) => {
+                if (hasErr) {
+                  dispatch(dbError(responseJson))
+                 } else {
+                  dispatch(receiveDeleteCustomer(responseJson.data))
+                  dispatch(fetchCustomers())
+                 }
+              })
+              .catch(err => dispatch(dbError(err)))
+  }
+}
+
+export function updateCustomer(customer) {
+  return function(dispatch) {
+    let hasErr = false;
+    dispatch(requestUpdateCustomer(customer))
+    return fetch('http://localhost:3000/customers', {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(customer)
+              })
+              .then((response) => {
+                hasErr = !response.ok;
+                return response.json();
+              })
+              .then((responseJson) => {
+                if (hasErr) {
+                  dispatch(dbError(responseJson))
+                 } else {
+                  dispatch(receiveUpdateCustomer(responseJson.data))
+                  dispatch(fetchCustomers())
+                 }
+              })
+              .catch(err => dispatch(dbError(err)))
   }
 }
 

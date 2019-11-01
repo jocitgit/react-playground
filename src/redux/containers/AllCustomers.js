@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchCustomerById } from '../actions'
+import { fetchCustomerById, deleteCustomer } from '../actions'
 import CustomerList from '../components/CustomerList'
 
 const mapStateToProps = state => {
@@ -13,6 +13,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onCustomerClick: id => {
             dispatch(fetchCustomerById(id))
+        },
+        onCustomerDelete: id => {
+            dispatch(deleteCustomer(id))
         }
     }
 }

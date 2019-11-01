@@ -2,9 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // const CustomerElement = ({ customerDetails }) => (
-const CustomerElement = ({ onClick, customerDetails }) => (
-  <li onClick={onClick}>
-    {customerDetails.fullName}
+const CustomerElement = ({ onClick, customerDetails, onDeleteClick }) => (
+  <li>
+    <a href="" onClick={e => {
+              e.preventDefault()
+              onClick()
+            }}
+          >
+           {customerDetails.fullName}
+          </a> 
+    <button onClick={onDeleteClick}
+          >
+            delete
+          </button> 
   </li>
 )
 
@@ -15,7 +25,8 @@ CustomerElement.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     fullName: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 }
 
 export default CustomerElement

@@ -6,7 +6,7 @@ const ErrorDisplay = ({ err }) => (
         {
           err !== undefined && err.hasError &&
           <h3>
-            Error: {err.error.message} 
+            Error: {JSON.stringify(err.error)} 
           </h3>
         }
       </div>
