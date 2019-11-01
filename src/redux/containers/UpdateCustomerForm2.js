@@ -10,7 +10,7 @@ class UpdateCustomerForm2 extends React.Component {
     //     this.props.onDefaultClick(this.props.selectedCustomer);
     // }
     render() {
-        const { isFetching, selectedCustomer, onUpdateClick, onDefaultClick } = this.props;
+        const { isFetching, selectedCustomer, onUpdateClick, onDefaultClick, pristine } = this.props;
         if (isFetching) {
             return (<p>Fetching customer details...</p>)
         } else {
@@ -26,7 +26,7 @@ class UpdateCustomerForm2 extends React.Component {
                         <label htmlFor=".lastName">Last Name: </label>
                         <Control.text model=".lastName" id=".lastName" />
                         <button type='button' onClick={() => onDefaultClick(selectedCustomer)}>Reset to Default</button>
-                        <button type="submit">Update Customer</button>
+                        <button type="submit" disabled={pristine}>Update Customer</button>
                         <button type="reset">Reset</button>
                     </Form>
                 </div>
@@ -48,8 +48,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.customerById.isFetching,
-        selectedCustomer: state.customerById.customer
+        isFetching: state.customerById.isFetching, // || state.customers.isFetching,
+        selectedCustomer: state.customerById.customer, 
+        pristine: state.forms.updateCustomer.$form.pristine
     }
 }
 
