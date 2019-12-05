@@ -25,7 +25,6 @@ function HookContextUser() {
     return (
         <div> MyContext is {cxt}</div>
     );
-
 }
 
 function ContextProvider() {
@@ -40,7 +39,8 @@ function ContextProvider() {
 
 // Providing and consuming a context with multiple values
 function ContextObjectProvider(props) {
-    const newValues = { str: props.str, handler: props.handler };
+    // const newValues = { str: props.str, handler: props.handler };
+    const newValues = { ...props }; // object clone
     return (
         <MyContextObject.Provider value={newValues}>
             <ContextObjectConsumer />
@@ -111,6 +111,7 @@ class ShowContext extends React.Component {
                 <ContextUser />
                 <ContextObjectProvider str={this.state.str} handler={this.handler}/>
                 <MultiContextProvider />
+                <MultiContextConsumer />
             </div>
         );
     }

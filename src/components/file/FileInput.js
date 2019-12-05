@@ -12,7 +12,6 @@ class FileInput extends React.Component {
         e.preventDefault();
         const files = this.fileRef.current.files;
         const filename = (files && files.length > 0) ? files[0].name : 'no file selected';
-        //console.log('File name is: ' + filename);
         console.log(`Selected file - ${filename}`);
     }
 

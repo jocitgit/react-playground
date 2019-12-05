@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app';
 import * as serviceWorker from './service-worker';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ReduxDemo from './redux/ReduxDemo';
+// import App from './components/app';
+// import ReduxDemo from './redux/ReduxDemo';
+const App = lazy(() => import('./components/app'));
+const ReduxDemo = lazy(() => import('./redux/ReduxDemo'));
 
+// Uses lazy loading to load full page - codesplitting
 ReactDOM.render(
     <Router>
-        <Switch>
-            <Route path="/redux" component={ReduxDemo} />
-            <Route path="/" component={App} />
-        </Switch>
+        <Suspense fallback={<div>Loading page...</div>}>
+            <Switch>
+                <Route path="/redux" component={ReduxDemo} />
+                <Route exact path="/" component={App} />
+            </Switch>
+        </Suspense>
     </Router>
     , document.getElementById('root'));
 

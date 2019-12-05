@@ -5,5 +5,5 @@ export const MyContextObject = React.createContext({
   str: 'hello',
   handler: () => {},
 });
-export const ContextColor = React.createContext('black');
+export const ContextColor = React.createContext('yellow');
 export const ContextUsername = React.createContext('nobody');

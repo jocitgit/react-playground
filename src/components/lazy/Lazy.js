@@ -1,10 +1,12 @@
 import React from 'react';
 import { LoadingError } from '../error/error.js';
 
-const AnyComponent = React.lazy(() => import('../any/AnyComponent')); // default exports only for lazy()
+// Only loads the bundle containing AnyComponent/BadCompnent when the component is first rendered
+const AnyComponent = React.lazy(() => import('../any/AnyComponent')); // only default exports can be used with lazy()
 const BadComponent = React.lazy(() => import('../bad/BadComponent'));
 
 function Lazy() {
+    // Uses Error Boundary around lazy loaded component
     return (
         <div>
             <LoadingError>

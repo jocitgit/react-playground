@@ -38,7 +38,7 @@ function RefFunction() {
 const RefParent = React.forwardRef((props, ref) => ( // note - can forward ref to dom element or class instance
     <div>
         <p>{props.title}</p>
-        <input type='text' ref={ref} value={props.inputText} />
+        <input type='text' ref={ref} value={props.text} />
     </div>
 ));
 
